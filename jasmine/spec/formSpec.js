@@ -134,7 +134,38 @@ function(){
 					
 				}); 
 			});
-			
+			describe("Check the phone number validator", function() {
+				it("Should return an error message if the data is not a phone number", function() {
+					var badVals = ["asdf", "fdas", "qqqq", -1, null, undefined];
+					badVals.forEach(function(val){
+						expect(validatePhoneNumber(val)).toBeTruthy();
+					});
+				});
+				
+				it("Should accept a valid phone number, within reason", function(){
+					var goodVals = ["555-6232", "8005882300", "(800)555-6320"];
+					goodVals.forEach(function(val){
+						expect(validatePhoneNumber(val)).toBeFalsy();
+					});
+				});
+				it("Shouldn't accept invalid phone numbers",function(){
+					var badVals = ["qqqqqqqqqqqqqqqqqq",'11111111111111111111', '2qqq2qqqqqqqqqqqqq','2'];
+					badVals.forEach(function(val){
+						expect(validatePhoneNumber(val)).toBeTruthy();
+					});
+				});
+				it("Should warn users of size limitations", function(){
+					expect(validatePhoneNumber(null)).toEqual("Your Phone Number appears invalid");
+					expect(validatePhoneNumber()).toEqual("Your Phone Number appears invalid");
+					
+					var longinput = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+					expect(validatePhoneNumber(longinput)).toEqual("Your Phone Number shouldn't have more than 15 digits");
+
+					expect(validatePhoneNumber("1")).toEqual("Your Phone Number should be at least 7 digits");
+					
+				}); 
+			});
+
 			describe("Check the checkbox validator.", function(){
 				//a var to hold an array of valid input
 				var goodInput;

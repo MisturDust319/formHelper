@@ -534,8 +534,8 @@ function validatePhoneNumber(number) {
 	
 	//split number by non-numbers then rejoin it,
 	//giving only numbers
-	number = number.split(/[^0-9]/).join();
-	
+	number = number.split(/[^0-9]/).join("");
+
 	//the most basic phone number should be 7 digits
 	if(number.length < 7) {
 		return "Your Phone Number should be at least 7 digits";
