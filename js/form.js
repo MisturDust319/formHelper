@@ -517,3 +517,34 @@ function validateCheckbox(data, checkboxValues) {
 		return message;
 	}
 }
+
+//validatePhoneNumber is a validator to check if a legitimate
+//phone number is given
+function validatePhoneNumber(number) {
+	//return an error message if number is null or undefined
+	if(number === null || number === undefined) {
+		var message = "Your Phone Number appears invalid";
+		return message;
+	}
+	
+	//force data to be string
+	number = number.toString();
+	//trim white space from number
+	number = number.trim();
+	
+	//split number by non-numbers then rejoin it,
+	//giving only numbers
+	number = number.split(/[^0-9]/).join();
+	
+	//the most basic phone number should be 7 digits
+	if(number.length < 7) {
+		return "Your Phone Number should be at least 7 digits";
+	}
+	//and it should not have more than 15 digits
+	else if(number.length > 15) {
+		return "Your Phone Number shouldn't have more than 15 digits";
+	}
+	else {
+		return false;
+	}
+}
